@@ -1,0 +1,150 @@
+<app-breadcrumb [title]="'Checkout'" [breadcrumb]="'Checkout'"></app-breadcrumb>
+<section class="section-b-space">
+  <div class="container padding-cls">
+    <div class="checkout-page">
+      <div class="checkout-form">
+        <form>
+          <div class="row">
+            <div class="col-lg-6 col-sm-12 col-xs-12">
+              <div class="checkout-title">
+                <h3>Billing Details</h3>
+              </div>
+              <div class="row check-out">
+                <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                  <div class="field-label">Phone</div>
+                  <input type="text" name="phone" [formControl]="checkoutForm.controls['phone']" value=""
+                    placeholder="039 820 2274" autocomplete="off">
+                  <div *ngIf="checkoutForm.controls.phone.touched && checkoutForm.controls.phone.errors?.required"
+                    class="text text-danger">
+                    Phone No is required.
+                  </div>
+                  <div *ngIf="checkoutForm.controls.phone.touched && checkoutForm.controls.phone.errors?.pattern"
+                    class="text text-danger">
+                    Phone No is must be number.
+                  </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                  <div class="field-label">Email</div>
+                  <input type="text" name="email" [formControl]="checkoutForm.controls['email']" value=""
+                    placeholder="nvdung.khtn@gmail.com" autocomplete="off">
+                  <div *ngIf="checkoutForm.controls.email.touched && checkoutForm.controls.email.errors?.required"
+                    class="text text-danger">
+                    Email is required
+                  </div>
+                  <div *ngIf="checkoutForm.controls.email.touched && checkoutForm.controls.email.errors?.email"
+                    class="text text-danger">
+                    Invalid Email
+                  </div>
+                </div>
+                <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                  <div class="field-label">FullName</div>
+                  <input type="text" name="fullname" [formControl]="checkoutForm.controls['fullName']" value=""
+                    placeholder="Nguyễn Văn A" autocomplete="off">
+                  <div *ngIf="checkoutForm.controls.fullName.touched && checkoutForm.controls.fullName.errors?.required"
+                    class="text text-danger">
+                    Full Name is required.
+                  </div>
+                  <div *ngIf="checkoutForm.controls.fullName.touched && checkoutForm.controls.fullName.errors?.pattern"
+                    class="text text-danger">
+                    Full Name must be an alphabates.
+                  </div>
+                </div>
+
+                <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                  <div class="field-label">Province</div>
+                  <input type="text" name="province" [formControl]="checkoutForm.controls['province']" value=""
+                    placeholder="Hà Nội" autocomplete="off">
+                  <div *ngIf="checkoutForm.controls.province.touched && checkoutForm.controls.province.errors?.required"
+                    class="text text-danger">
+                    Province is required
+                  </div>
+                </div>
+                <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                  <div class="field-label">District</div>
+                  <input type="text" name="district" [formControl]="checkoutForm.controls['district']" value=""
+                    placeholder="Quận Ba Đình" autocomplete="off">
+                  <div *ngIf="checkoutForm.controls.district.touched && checkoutForm.controls.district.errors?.required"
+                    class="text text-danger">
+                    District is required
+                  </div>
+                </div>
+                <div class="form-group col-md-12 col-sm-6 col-xs-12">
+                  <div class="field-label">Ward</div>
+                  <input type="text" name="ward" [formControl]="checkoutForm.controls['ward']" value=""
+                    placeholder="Hoàng Mai" autocomplete="off">
+                  <div *ngIf="checkoutForm.controls.ward.touched && checkoutForm.controls.ward.errors?.required"
+                    class="text text-danger">
+                    Ward is required
+                  </div>
+                </div>
+                <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                  <div class="field-label">Street</div>
+                  <input type="text" name="street" [formControl]="checkoutForm.controls['street']" value=""
+                    placeholder="127 Âu Cơ" autocomplete="off">
+                  <div *ngIf="checkoutForm.controls.street.touched && checkoutForm.controls.street.errors?.required"
+                    class="text text-danger">
+                    Street is required
+                  </div>
+                  <div *ngIf="checkoutForm.controls.street.touched && checkoutForm.controls.street.errors?.maxlength"
+                    class="text text-danger">
+                    Maximum 50 character
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+
+            <div class="col-lg-6 col-sm-12 col-xs-12">
+              <div class="checkout-details">
+                <div class="order-box">
+                  <div class="title-box">
+                    <div>Product <span> Total</span></div>
+                  </div>
+                  <ul class="qty" *ngIf='orderDetails.length'>
+                    <li *ngFor="let orderDetail of orderDetails">
+                      {{orderDetail.productName}}
+                      - {{orderDetail.selectedProperty[0]?.value}} -
+                      {{orderDetail.selectedProperty[1]?.value}} × <b>{{ orderDetail.quantity }}</b>
+                      <span class="currency">
+                        {{ orderDetail.productPrice | vndCurrency }}
+                      </span>
+                    </li>
+                  </ul>
+                  <ul class="qty" *ngIf='!orderDetails.length'>
+                    <li class="empty-checkout"> There are no products in cart </li>
+                  </ul>
+                  <ul class="sub-total">
+                    <li>
+                      Subtotal <span class="count currency">{{ getTotal | vndCurrency }}</span>
+                    </li>
+                    <li *ngIf='orderDetails.length'>
+                      Shipping
+                      <div class="shipping currency">
+                        {{cartService.DELIVERY_PRICE | vndCurrency}}
+                      </div>
+                    </li>
+                    <li>
+                      Discount <span class="count currency">-{{ getTotal*discountPercent/100 | vndCurrency }}</span>
+                    </li>
+                  </ul>
+                  <ul class="total">
+                    <li>Total <span class="count">{{ cartTotalAmount | vndCurrency }}</span></li>
+                  </ul>
+                </div>
+
+                <div class="payment-box" *ngIf='orderDetails.length'>
+                  <div class="text-right">
+                    <button type="submit" class="btn-solid btn" (click)="checkout()">
+                      Check Out
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

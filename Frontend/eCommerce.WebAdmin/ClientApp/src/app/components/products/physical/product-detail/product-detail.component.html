@@ -1,0 +1,79 @@
+<div class="container-fluid">
+    <div class="card">
+        <div class="row product-page-main card-body">
+            <div class="col-sm-4">
+                <section style="outline: 2px dashed #ccc;">
+                    <div class="img" *ngIf="listUrlImage.length > 0">
+                        <ngb-carousel style="max-height: 600px">
+                            <ng-template ngbSlide *ngFor="let image of listUrlImage">
+                                <div class="picsum-img-wrapper">
+                                    <img [src]="image" alt="Random slide" style="
+                                            width: 100%;
+                                        " />
+                                </div>
+                            </ng-template>
+                        </ngb-carousel>
+                    </div>
+                </section>
+            </div>
+            <div class="col-sm-8">
+                <div class="product-page-details product-right mb-0">
+                    <h2>{{ product?.name }}</h2>
+                    <!-- <ngb-rating iconClass="fa-star" [readonly]="true" [rate]="starAvg" class="rating-size-product"> -->
+                    <!-- </ngb-rating> -->
+                    <div style="position: relative;">
+                        <span style="font-size:16px;font-weight: 700;color: #edb867;">{{starAvg}}</span>
+                        <bar-rating [(rate)]="starAvg" [readOnly]="true" [max]="5" class="bar-rating"></bar-rating>
+                        <span class="rating-number" style="font-size:16px">({{ratingNumber}} rating)</span>
+                    </div>
+
+                    <hr />
+                    <div class="border-product">
+                        <div style="padding: 0" class="container" *ngFor="let l of labels; index as index">
+                            <h6>
+                                <b>{{ l.label }}</b>
+                            </h6>
+                            <div class="label-option">
+                                <div *ngFor="let o of l.options; index as i">
+                                    <button [class]="{'active': property[index] === i}"
+                                        (click)="onSelectedProperty(index, i)" class="options-style">{{ o }}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    <div class="product-price digits mt-2" *ngIf="product">
+                        <label class="product-title">inventory</label>
+                        <h5>{{ product?.inventory?.quantity }}</h5>
+                    </div>
+                    <hr />
+
+                    <div class="product-price digits mt-2">
+                        <h6 class="product-title">price</h6>
+                        <h3>{{ product?.price | vndCurrency }}</h3>
+                    </div>
+                    <hr />
+
+                    <h6 class="product-title">product details</h6>
+                    <p class="mb-0">{{ product?.description }}</p>
+                    <hr />
+
+                    <div class="m-t-15">
+                        <a class="btn btn-warning" type="button" style="margin: 5px" [routerLink]="[
+                                '/products/update-product',
+                                product?.id
+                            ]">
+                            Update
+                        </a>
+                        <button class="btn btn-primary" type="button" style="margin: 5px"
+                            (click)="deleteProduct(productId)">
+                            Delete
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

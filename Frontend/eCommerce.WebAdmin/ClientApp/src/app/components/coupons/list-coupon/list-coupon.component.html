@@ -1,0 +1,18 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-header">
+            <h5>Coupon List</h5>
+        </div>
+        <div class="card-body">
+            <div style="overflow-x: scroll;" id="batchDelete"
+                class="category-table custom-datatable transcation-datatable user-image">
+                <ng2-smart-table [settings]="settings" [source]="couponListVM" (deleteConfirm)="onDeleteConfirm($event)"
+                    (editConfirm)="onEditConfirm($event)" (createConfirm)="onCreateConfirm($event)"
+                    style="width: 1440px;">
+                </ng2-smart-table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Container-fluid Ends-->

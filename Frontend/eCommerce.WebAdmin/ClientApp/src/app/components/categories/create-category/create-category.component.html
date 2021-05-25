@@ -1,0 +1,26 @@
+<div class="container-fluid">
+    <div class="card tab2-card">
+        <div class="card-header">
+            <h5>Create Category</h5>
+        </div>
+        <div class="card-body">
+            <form [formGroup]="generalForm">
+                <div class="form-group row line-input">
+                    <label for="name" class="col-xl-3 col-md-4 mt-2">Name:</label>
+                    <input type="text" formControlName="name" placeholder="Name" class="form-control col-xl-8 col-md-7">
+                </div>
+                <label class="message-erro" *ngIf="formValidators.name.errors  && isStart">Name not
+                    null</label>
+            </form>
+            <label id="title-property">List Property</label>
+            <ng2-smart-table [settings]="settings" [source]="properties" (createConfirm)="onCreateConfirm($event)"
+                (deleteConfirm)="onDeleteConfirm($event)" (editConfirm)="onEditConfirm($event)">
+            </ng2-smart-table>
+            <div>
+                <button class="btn btn-primary mr-1" id="btn-add" (click)="onSave()">Save</button>
+            </div>
+        </div>
+
+    </div>
+
+</div>

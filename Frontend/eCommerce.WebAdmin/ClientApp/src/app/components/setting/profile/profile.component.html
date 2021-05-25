@@ -1,0 +1,162 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xl-4">
+            <div class="card" [hidden]="displayEditImg">
+                <div class="card-body" *ngIf="user">
+                    <div class="profile-details text-center">
+                        <img [src]="user.urlImage || defaultUrlAvata" alt="avatar"
+                            class="img-fluid img-90 rounded-circle blur-up lazyloaded" (click)="changeImage()" />
+                        <hr />
+                        <span>{{ user?.username }}</span>
+                        <div class="social">
+                            <div class="form-group btn-showcase">
+                                <button class="btn social-btn btn-fb d-inline-block">
+                                    <i class="fa fa-facebook"></i>
+                                </button>
+                                <button class="btn social-btn btn-twitter d-inline-block">
+                                    <i class="fa fa-google"></i>
+                                </button>
+                                <button class="btn social-btn btn-google d-inline-block mr-0">
+                                    <i class="fa fa-twitter"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-button">
+                            <button class="btn btn-primary" type="submit" (click)="resetPassword()">
+                                Reset Password
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card" [hidden]="!displayEditImg">
+                <div>
+                    <img [src]="fileUpload?.url || defaultUrl" width="100%" alt="avatar"
+                        class="img-fluid image_zoom_1" />
+                </div>
+                <div class="mt-3">
+                    <input type="file" class="text-nowrap text-truncate" (change)="selectFile($event)" #inputImage />
+                </div>
+                <div id="div-action-btn-img">
+                    <button class="btn btn-primary" type="submit" id="btn-right" (click)="changeImage()">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-8">
+            <div class="card tab2-card">
+                <div class="card-body">
+                    <ngb-tabset class="tab-coupon profile-tabs">
+                        <ngb-tab>
+                            <ng-template ngbTabTitle>
+                                <app-feather-icons [icon]="'user'"></app-feather-icons>Profile
+                            </ng-template>
+                            <ng-template ngbTabContent>
+                                <div class="tab-pane fade show active" id="top-profile" role="tabpanel"
+                                    aria-labelledby="top-profile-tab">
+                                    <h5 class="f-w-600">Profile</h5>
+                                    <div [hidden]="displayEditProfile">
+                                        <div class="table-responsive profile-table">
+                                            <table class="table table-responsive">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>UserName:</td>
+                                                        <td>
+                                                            {{ user?.username }}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>First Name:</td>
+                                                        <td>
+                                                            {{
+                                                            user?.firstName
+                                                            }}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Last Name:</td>
+                                                        <td>
+                                                            {{ user?.lastName }}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Phone number:</td>
+                                                        <td>
+                                                            {{
+                                                            user?.phoneNumber
+                                                            }}
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div id="div-btn-edit-profile">
+                                            <button class="btn btn-primary" (click)="clickEditProfile()">
+                                                Edit Information
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <!--------------------------------------------------------- todo --------------------------------------------->
+                                    <div [hidden]="!displayEditProfile">
+                                        <form [formGroup]="formUser" class="needs-validation user-add" novalida>
+                                            <div class="form-group row line-input">
+                                                <label for="username" class="col-xl-3 col-md-4">
+                                                    UserName</label>
+                                                <input class="form-control col-xl-8 col-md-7" formControlName="username"
+                                                    id="username" disabled />
+                                            </div>
+                                            <div class="form-group row line-input">
+                                                <label for="firstName" class="col-xl-3 col-md-4"><span>*</span> First
+                                                    Name</label>
+                                                <input class="form-control col-xl-8 col-md-7"
+                                                    formControlName="firstName" id="firstName" type="text"
+                                                    required="" />
+                                            </div>
+                                            <label class="message-erro" *ngIf="
+                                                    formValidators.firstName
+                                                        .errors
+                                                ">FirstName not null</label>
+                                            <div class="form-group row line-input">
+                                                <label for="lastName" class="col-xl-3 col-md-4"><span>*</span> Last
+                                                    Name</label>
+                                                <input class="form-control col-xl-8 col-md-7" formControlName="lastName"
+                                                    id="lastName" type="text" required="" />
+                                            </div>
+                                            <label class="message-erro" *ngIf="
+                                                    formValidators.lastName
+                                                        .errors
+                                                ">LastName not null</label>
+                                            <div class="form-group row line-input">
+                                                <label for="phoneNumber" class="col-xl-3 col-md-4"><span>*</span> Phone
+                                                    Number</label>
+                                                <input class="form-control col-xl-8 col-md-7"
+                                                    formControlName="phoneNumber" id="phoneNumber" type="text"
+                                                    required="" />
+                                            </div>
+                                            <label class="message-erro"
+                                                *ngIf="formValidators.phoneNumber.errors && isStart">
+                                                Phone Number must length to 8 from 15 character</label>
+                                        </form>
+                                        <div id="div-action-btn-img">
+                                            <button class="btn btn-light" id="btn-right" (click)="clickEditProfile()">
+                                                Cancel
+                                            </button>
+                                            <button class="btn btn-primary mr-1" type="submit" id="btn-left"
+                                                (click)="saveUser()">
+                                                Save
+                                            </button>                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </ngb-tab>
+                    </ngb-tabset>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Container-fluid Ends-->

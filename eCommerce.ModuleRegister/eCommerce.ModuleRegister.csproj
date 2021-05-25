@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\eCommerce.Application\eCommerce.Application.csproj" PrivateAssets="Compile " />
+    <ProjectReference Include="..\eCommerce.Notification\eCommerce.Notification.csproj" />
+    <ProjectReference Include="..\eCommerce.Persistence\eCommerce.Persistence.csproj" PrivateAssets="Compile " />
+  </ItemGroup>
+
+</Project>

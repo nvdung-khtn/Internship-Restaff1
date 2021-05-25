@@ -1,0 +1,13 @@
+<div class="container-fluid p-5">
+    <div class="card tab2-card">
+        <div class="card-header">
+            <h5>Category name: {{name}} </h5>
+        </div>
+        <div class="card-body">
+            <label id="title-property">Properties</label>
+            <ng2-smart-table [settings]="settings" [source]="properties" (createConfirm)="onCreateConfirm($event)"
+                (deleteConfirm)="onDeleteConfirm($event)" (editConfirm)="onEditConfirm($event)">
+            </ng2-smart-table>
+        </div>
+    </div>
+</div>

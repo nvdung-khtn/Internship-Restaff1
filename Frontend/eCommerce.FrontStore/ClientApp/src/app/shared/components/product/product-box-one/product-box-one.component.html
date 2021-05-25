@@ -1,0 +1,56 @@
+<div *ngIf="!loader">
+  <div class="img-wrapper">
+    <div class="lable-block">
+      <!-- <span class="lable3" *ngIf="product.new">new</span>
+      <span class="lable4" *ngIf="product.sale">on sale</span> -->
+    </div>
+    <div class="front">
+      <a [routerLink]="['/shop/product/three/column', product.id]">
+        <img [defaultImage]="
+            ImageSrc ? ImageSrc : 'assets/images/product/placeholder.jpg'
+          " [lazyLoad]="ImageSrc ? ImageSrc : product?.photos[0]?.url" class="img-fluid lazy-loading"
+          alt="{{ product?.photos[0]?.id }}" />
+      </a>
+    </div>
+    <div class="back" *ngIf="onHowerChangeImage">
+      <a [routerLink]="['/shop/product/left/sidebar/', product?.id]">
+        <img [src]="ImageSrc ? ImageSrc : product?.photos[1]?.url" class="img-fluid lazy-loading"
+          alt="{{ product?.photos[1]?.id }}" />
+      </a>
+    </div>
+    <ul class="product-thumb-list" *ngIf="thumbnail">
+      <li class="grid_thumb_img" [class.active]="ImageSrc == image.url" *ngFor="let image of product?.photos">
+        <a href="javascript:void(0)" (mouseover)="ChangeVariantsImage(image.src)">
+          <img [lazyLoad]="image?.url" />
+        </a>
+      </li>
+    </ul>
+    <div class="cart-info cart-wrap">
+      <a href="javascript:void(0)" title="Add to cart" (click)="addToCart(product)">
+        <i class="ti-shopping-cart"></i>
+      </a>
+      <a href="javascript:void(0)" title="Add to Wishlist" (click)="addToWishlist(product)">
+        <i class="fa fa-heart" aria-hidden="true" [class.my-wishlist]='isWishlist'></i>
+      </a>
+      <a href="javascript:void(0)" title="Quick View" (click)="QuickView.openModal()">
+        <i class="ti-search" aria-hidden="true"></i>
+      </a>
+      <a href="javascript:void(0)" title="Compare" (click)="addToCompare(product)">
+        <i class="ti-reload" aria-hidden="true"></i>
+      </a>
+    </div>
+  </div>
+  <div class="product-detail">
+    <div>
+      <bar-rating [rate]="starAvg" [readOnly]="true"></bar-rating>
+      <a [routerLink]="['/shop/product/left/sidebar/', product?.id]">
+        <h6>{{ product?.name | titlecase }}</h6>
+      </a>
+      <p>{{ product?.description }}</p>
+      <h4>{{ product?.price | vndCurrency }} </h4>
+    </div>
+  </div>
+</div>
+<app-skeleton-product-box *ngIf="loader"></app-skeleton-product-box>
+<app-quick-view #quickView [product]="product" [currency]="currency"></app-quick-view>
+<app-cart-modal #cartModal [product]="product" [currency]="currency" *ngIf="cartModal"></app-cart-modal>

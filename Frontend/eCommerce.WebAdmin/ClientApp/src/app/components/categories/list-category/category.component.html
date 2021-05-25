@@ -1,0 +1,20 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+    <div class="card tab2-card">
+        <div class="card-header">
+            <h5>Products Category</h5>
+        </div>
+        <div class="card-body">
+            <div id="batchDelete" class="category-table custom-datatable">
+                <div class="table-responsive">
+                    <ng2-smart-table [settings]="settings" [source]="categories"
+                        (deleteConfirm)="onDeleteConfirm($event)" (editConfirm)="onEditConfirm($event)"
+                        (userRowSelect)="onCategoryRowSelected($event)">
+                    </ng2-smart-table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- Container-fluid Ends-->

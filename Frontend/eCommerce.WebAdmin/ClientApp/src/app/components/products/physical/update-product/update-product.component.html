@@ -1,0 +1,309 @@
+<div class="container-fluid">
+    <div class="row product-adding">
+        <div class="col-xl-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Product Image</h5>
+                </div>
+                <div class="card-body">
+                    <div>
+                        <section>
+                            <div
+                                class="img my-carousel-view"
+                                *ngIf="listUrlImage.length > 0"
+                            >
+                                <ngb-carousel style="max-height: 600px">
+                                    <ng-template
+                                        ngbSlide
+                                        *ngFor="let image of listUrlImage"
+                                    >
+                                        <div class="picsum-img-wrapper">
+                                            <img
+                                                [src]="image"
+                                                alt="Random slide"
+                                                style="
+                                                    width: 300px;
+                                                    box-shadow: 0 4px 8px 0
+                                                            rgba(0, 0, 0, 0.2),
+                                                        0 6px 20px 0
+                                                            rgba(0, 0, 0, 0.19);
+                                                "
+                                            />
+                                        </div>
+
+                                        <div class="center">
+                                            <button
+                                                class="btn btn-danger center"
+                                                type="btn"
+                                                (click)="deleteImage(image)"
+                                                style="
+                                                    position: absolute;
+                                                    bottom: 50px;
+                                                    opacity: 0.9;
+                                                "
+                                            >
+                                                Delete
+                                            </button>
+                                        </div>
+                                    </ng-template>
+                                </ngb-carousel>
+                            </div>
+                        </section>
+                        <div
+                            class="col-xl-3 col-sm-4 mb-0"
+                            *ngIf="!listUrlImage.length"
+                        >
+                            <img
+                                [src]="defaultUrl"
+                                style="
+                                    height: 250px;
+                                    width: 300px;
+                                    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+                                        0 6px 20px 0 rgba(0, 0, 0, 0.19);
+                                "
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h5>Add Image</h5>
+                </div>
+                <div class="card-body">
+                    <div>
+                        <section>
+                            <div class="card-body dropzone-custom p-0 mt-3">
+                                <div
+                                    id="myDropzoneElement"
+                                    class="dropzone dropzone-primary center"
+                                    [dropzone]="config1"
+                                    (error)="onUploadError($event)"
+                                    (success)="onUploadSuccess($event)"
+                                    style="width: 270px; height: 200px"
+                                >
+                                    <div class="dz-message needsclick center">
+                                        <i class="fa fa-cloud-upload"></i>
+                                        <h4 class="mb-0 f-w-600">
+                                            Drop files here or click to upload.
+                                        </h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-8">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Product Detail</h5>
+                </div>
+                <div class="card-body">
+                    <form
+                        class="needs-validation"
+                        [formGroup]="productForm"
+                        novalidate
+                        autocomplete="off"
+                        *ngIf="productForm"
+                    >
+                        <div class="form-group row">
+                            <label
+                                for="validationCustom01"
+                                class="col-xl-3 col-sm-4 mb-0"
+                                >Name:
+                            </label>
+                            <input
+                                class="form-control col-xl-8 col-sm-7"
+                                id="validationCustom01"
+                                type="text"
+                                formControlName="name"
+                                required
+                                placeholder="Sản phẩm 1"
+                            />
+
+                            <div
+                                *ngIf="
+                                    name.invalid && (name.dirty || name.touched)
+                                "
+                                class="message-error"
+                            >
+                                <div
+                                    *ngIf="name.errors?.required"
+                                    class="text text-danger"
+                                >
+                                    Title Name is required.
+                                </div>
+                                <div
+                                    *ngIf="name.errors?.minlength"
+                                    class="text text-danger"
+                                >
+                                    Title Name must be at least 10 characters
+                                    long.
+                                </div>
+                                <div
+                                    *ngIf="
+                                        !name.errors?.minlength &&
+                                        name.errors?.pattern
+                                    "
+                                    class="text text-danger"
+                                >
+                                    Title Name contains only letters and
+                                    numbers.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label
+                                for="validationCustom02"
+                                class="col-xl-3 col-sm-4 mb-0"
+                                >Price :</label
+                            >
+                            <input
+                                class="form-control col-xl-8 col-sm-7"
+                                id="validationCustom02"
+                                type="number"
+                                formControlName="price"
+                            />
+
+                            <div
+                                *ngIf="
+                                    price.invalid &&
+                                    (price.dirty || price.touched)
+                                "
+                                class="message-error"
+                            >
+                                <div
+                                    *ngIf="price.errors?.required"
+                                    class="text text-danger"
+                                >
+                                    Title Price is required.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label
+                                for="exampleFormControlSelect1"
+                                class="col-xl-3 col-sm-4 mb-0"
+                                >Category :</label
+                            >
+                            <select
+                                class="form-control digits col-xl-8 col-sm-7"
+                                id="exampleFormControlSelect1"
+                                formControlName="categoryId"
+                            >
+                                <option
+                                    *ngFor="let category of categories"
+                                    value="{{ category.id }}"
+                                >
+                                    {{ category.name }}
+                                </option>
+                            </select>
+
+                            <div
+                                *ngIf="
+                                    categoryId.invalid &&
+                                    (categoryId.dirty || categoryId.touched)
+                                "
+                                class="message-error"
+                            >
+                                <div
+                                    *ngIf="categoryId.errors?.required"
+                                    class="text text-danger"
+                                >
+                                    Title Category is required.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-xl-3 col-sm-4 mb-0"
+                                >Description :</label
+                            >
+                            <div
+                                class="col-xl-8 col-sm-7 pl-0 description-sm"
+                                style="padding-right: 0"
+                            >
+                                <textarea
+                                    class="
+                                        form-control
+                                        digits
+                                        col-xl-8 col-sm-7
+                                    "
+                                    style="max-width: 100%"
+                                    name="description"
+                                    formControlName="description"
+                                    rows="4"
+                                    cols="50"
+                                    placeholder="Mô tả về sản phẩm 1"
+                                >
+                                </textarea>
+
+                                <div
+                                    style="margin-top: 6px"
+                                    *ngIf="
+                                        description.invalid &&
+                                        (description.dirty ||
+                                            description.touched)
+                                    "
+                                >
+                                    <div
+                                        *ngIf="description.errors?.required"
+                                        class="text text-danger"
+                                    >
+                                        Title description is required.
+                                    </div>
+                                    <div
+                                        *ngIf="description.errors?.minlength"
+                                        class="text text-danger"
+                                    >
+                                        Title description must be at least 10
+                                        characters long.
+                                    </div>
+                                    <div
+                                        *ngIf="
+                                            !description.errors?.minlength &&
+                                            description.errors?.pattern
+                                        "
+                                        class="text text-danger"
+                                    >
+                                        Title description contains no special
+                                        characters.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="card-footer">
+                    <div class="form-group row mb-0">
+                        <div
+                            class="
+                                product-buttons
+                                col-sm-8
+                                offset-xl-3 offset-sm-4
+                            "
+                        >
+                            <button
+                                type="button"
+                                class="btn btn-primary mr-1"
+                                (click)="onSubmit()"
+                            >
+                                Update
+                            </button>
+                            <button
+                                type="button"
+                                class="btn btn-light"
+                                (click)="Reset()"
+                            >
+                                Reset
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

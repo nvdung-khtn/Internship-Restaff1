@@ -1,0 +1,41 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Choose Coupon</h4>
+    <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body scroll-bar">
+    <ng-container *ngFor="let coupon of coupons">
+        <div class="card mb-3" style="max-width: 600px;">
+            <div class="row no-gutters">
+                <div class="col-md-4">
+                    <img src="assets/images/coupon.png" alt="coupon image">
+                </div>
+                <div class="card-body coupon-body">
+                    <div class="col-md-8 coupon-main">
+                        <h5 class="card-title coupon-name">{{coupon.name}}</h5>
+                        <p class="card-text coupon-min-price">
+                            <small class="text-muted">
+                                Orders from {{coupon.minPrice | vndCurrency }}
+                            </small>
+                        </p>
+                        <p class="card-text"><small class="text-muted coupon-expiration-date">HSD: {{coupon.endDate |
+                                date:'dd-MM-yyyy'}}</small>
+                        </p>
+                    </div>
+                    <div class="coupon-action">
+                        <input id="couponCode" class="coupon-action-check" type="radio" id="" name="coupon"
+                            [value]="coupon.code" (change)="handleChange($event)">
+                        <a href="">Condition</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn coupon-btn btn-outline-secondary"
+        (click)="modal.dismiss('cancel click')">Cancel</button>
+    <button type="button" class="btn coupon-btn btn-danger" (click)="onClick()">Ok</button>
+</div>

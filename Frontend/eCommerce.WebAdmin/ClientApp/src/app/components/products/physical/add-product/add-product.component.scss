@@ -1,0 +1,25 @@
+.add-product img {
+    width: 450px;
+}
+
+.form-group {
+    margin-bottom: 1.8rem;
+    position: relative;
+}
+
+.message-error {
+    position: absolute;
+    left: 25%;
+    top: 40px;
+}
+
+.disabled {
+    background-color: #ccc !important;
+    color: black;
+    border-color: #ccc !important;
+}
+
+.dropzone.myDropzone {
+    padding: 0;
+    min-width: 120px;
+}

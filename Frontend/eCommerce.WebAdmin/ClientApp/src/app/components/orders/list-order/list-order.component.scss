@@ -1,0 +1,25 @@
+:host {
+    ::ng-deep .customer .ng2-smart-title {
+        width: 200px !important;
+    }
+
+    ::ng-deep .address .ng2-smart-title {
+        width: 350px !important;
+    }
+
+    ::ng-deep .product .ng2-smart-title {
+        width: 200px !important;
+    }
+
+    ::ng-deep .createdDate .ng2-smart-title {
+        width: 100px !important;
+    }
+
+    ::ng-deep .propertyString .ng2-smart-title {
+        width: 200px !important;
+    }
+
+    ::ng-deep .statusString .ng2-smart-title {
+        width: 75px !important;
+    }
+}

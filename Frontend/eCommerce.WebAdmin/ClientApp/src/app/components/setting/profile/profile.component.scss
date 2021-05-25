@@ -1,0 +1,54 @@
+img:hover{
+    cursor: pointer;    
+}
+
+#btn-left{
+    float: right;
+    color: black;
+    border: none;
+    text-align: center;
+    font-size: 10px;
+    margin-right: 10px;
+    width: 150px;
+    padding: 5px;
+}
+#btn-right{
+    float: right;
+    border: none;
+    text-align: center;
+    width: 150px;
+    font-size: 10px;
+    padding: 5px;
+}
+   
+#div-action-btn-img{
+    margin-top: 20px;
+    width:100%;
+    text-align: center !important;
+    display: block;
+    margin-bottom: 10px;
+    height: 50px;
+    justify-content: center;
+}
+#div-btn-edit-profile{
+    width:100%;
+    text-align: right !important;
+    
+}
+.message-erro{
+    text-align: center;
+    color: red;
+    width: 100%;
+    float: right;
+    padding-left: 20%;
+}
+.line-input{
+    margin-bottom: 2px;
+    margin-top: 20px;    
+}
+#div-action-btn-img{
+    padding-right: 45px;
+}
+// .category-table custom-datatable transcation-datatable user-image{
+//     float: right;
+// }

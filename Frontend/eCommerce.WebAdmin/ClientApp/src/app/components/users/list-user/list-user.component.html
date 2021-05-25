@@ -1,0 +1,61 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-header">
+            <h5>User Details</h5>
+        </div>
+        <div class="card-body">
+            <div ngbDropdown class="d-inline-block">
+                <button
+                    class="btn btn-outline-primary"
+                    id="dropdownBasic1"
+                    ngbDropdownToggle
+                >
+                    Is LockOut
+                </button>
+                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                    <button ngbDropdownItem (click)="ShowAll()">All</button>
+                    <button ngbDropdownItem (click)="isLockout()">True</button>
+                    <button ngbDropdownItem (click)="isUnLockout()">
+                        False
+                    </button>
+                </div>
+            </div>
+            <div ngbDropdown class="d-inline-block">
+                <!-- <input
+                    type="text"
+                    placeholder="search"
+                    class="form-control"
+                    [(ngModel)]="keyWordSearch"
+                    (keyup.enter)="Search(keyWordSearch)"
+                /> -->
+            </div>
+            <div class="btn-popup pull-right">
+                <a
+                    class="btn btn-primary mr-1"
+                    [routerLink]="'/users/create-user'"
+                    >Create User</a
+                >
+            </div>
+            <div
+                id="batchDelete"
+                class="
+                    category-table
+                    custom-datatable
+                    transcation-datatable
+                    user-image
+                "
+            >
+                <div class="table-responsive">
+                    <ng2-smart-table
+                        [settings]="settings"
+                        [source]="user_list"
+                        (deleteConfirm)="onDeleteConfirm($event)"
+                        (editConfirm)="onSaveConfirm($event)"
+                    ></ng2-smart-table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Container-fluid Ends-->

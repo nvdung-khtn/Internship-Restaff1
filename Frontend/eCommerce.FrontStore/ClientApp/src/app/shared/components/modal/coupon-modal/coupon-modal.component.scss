@@ -1,0 +1,46 @@
+.coupon-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.coupon-action {
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+}
+
+button.btn.coupon-btn {
+    min-width: 80px;
+    min-height: 30px;
+}
+
+.coupon-expiration-date {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.coupon-action-check {
+    zoom: 1.5;
+    margin-bottom: 4px;
+}
+
+.card-body.coupon-body {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.coupon-main {
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.row.no-gutters {
+    flex-wrap: nowrap;
+}
+
+.scroll-bar {
+    max-height: 500px !important;
+    overflow: auto !important;
+}

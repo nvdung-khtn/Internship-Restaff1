@@ -1,0 +1,142 @@
+<app-breadcrumb [title]="'Cart'" [breadcrumb]="'Cart'"></app-breadcrumb>
+<!-- section start -->
+<section class="cart-section section-b-space">
+    <div class="container">
+        <div class="col-sm-12 empty-cart-cls text-center" *ngIf="!orderDetails.length">
+            <img src="assets/images/icon-empty-cart.png" class="img-fluid mb-4">
+            <h3><strong>Your Cart is Empty</strong></h3>
+            <h4>Add something to make me happy :)</h4>
+        </div>
+        <div class="row" *ngIf="orderDetails.length">
+            <div class="col-sm-12">
+                <table class="table cart-table table-responsive-xs">
+                    <thead>
+                        <tr class="table-head">
+                            <th scope="col">image</th>
+                            <th scope="col">product name</th>
+                            <th scope="col">price</th>
+                            <th scope="col">quantity</th>
+                            <th scope="col">action</th>
+                            <th scope="col">total</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let orderDetail of orderDetails">
+                        <tr>
+                            <td>
+                                <img class="item-image" [src]="orderDetail.photo.url">
+                            </td>
+                            <td>
+                                <a class="item-name"
+                                    [routerLink]="['/shop/product/three/column', orderDetail.productId]">{{orderDetail.productName}}
+                                    - {{orderDetail.selectedProperty[0]?.value}} -
+                                    {{orderDetail.selectedProperty[1]?.value}}</a>
+                                <div class="mobile-cart-content row">
+                                    <div class="col-xs-3">s
+                                        <div class="qty-box">
+                                            <div class="input-group">
+                                                <input type="text" name="quantity" class="form-control input-number"
+                                                    disabled [(ngModel)]="orderDetail.quantity">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <h2 class="td-color">
+                                            {{ orderDetail.productPrice | vndCurrency }}
+                                        </h2>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <h2 class="td-color">
+                                            <a (click)="removeItem(orderDetail)" class="icon">
+                                                <i class="ti-close"></i>
+                                            </a>
+                                        </h2>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <h2>
+                                    {{ orderDetail.productPrice | vndCurrency }}
+                                </h2>
+                            </td>
+                            <td>
+                                <div class="qty-box">
+                                    <div class="input-group">
+                                        <span class="input-group-prepend">
+                                            <button type="button" class="btn quantity-left-minus" data-type="minus"
+                                                (click)="decrement(orderDetail)">
+                                                <i class="ti-angle-left"></i>
+                                            </button>
+                                        </span>
+                                        <input type="text" name="quantity" class="form-control input-number" disabled
+                                            [(ngModel)]="orderDetail.quantity">
+                                        <span class="input-group-prepend">
+                                            <button type="button" class="btn quantity-right-plus" data-type="plus"
+                                                (click)="increment(orderDetail)">
+                                                <i class="ti-angle-right"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <a href="javascript:void(0)" (click)="removeItem(orderDetail)" class="icon">
+                                    <i class="ti-close"></i>
+                                </a>
+                            </td>
+                            <td>
+                                <h2 class="td-color">
+                                    {{ orderDetail.productPrice * orderDetail.quantity | vndCurrency }}
+                                </h2>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="cart-order offset-sm-9 col-sm-3 mt-3">
+                    <h3 class="cart-order__title">
+                        Thông tin đơn hàng
+                    </h3>
+                    <div class="cart-order__value cart-order__block">
+                        <span class="cart-order__text">Tạm tính ({{cartService.itemNumber}} sản phẩm)</span>
+                        <span class="cart-order__price">{{ getTotal | vndCurrency }}</span>
+                    </div>
+                    <div class="cart-order__delivery cart-order__block">
+                        <span class="cart-order__text">Phí giao hàng</span>
+                        <span class="cart-order__price">{{ cartService.DELIVERY_PRICE | vndCurrency }}</span>
+                    </div>
+                    <span (click)="open()" class="choose-coupon">Choose a coupon</span>
+                    <div class="cart-order__coupon cart-order__block">
+                        <input type="text" class="cart-order__coupon-input" id="" [(ngModel)]='code'
+                            (input)="onCouponInput()">
+                        <button (click)="handleCoupon(code)" type="button" class="btn btn-info text-right btn-coupon">
+                            Áp Dụng
+                        </button>
+                    </div>
+                    <div class="cart-order__message-error">
+                        {{errorMessage}}
+                    </div>
+                    <div class="cart-order__total-price cart-order__block">
+                        <span>Đã giảm</span>
+                        <span class="cart-order__price">{{ getTotal | saleoff: discountPercent |
+                            vndCurrency }}</span>
+                    </div>
+                    <div class="cart-order__total-price cart-order__block">
+                        <span>Tổng cộng</span>
+                        <span class="cart-order__price">{{ cartTotalAmount | vndCurrency }}</span>
+                    </div>
+                    <div class="mt-3">
+                        <a class="btn btn-solid d-block" (click)="checkout()">check out</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row cart-buttons" *ngIf='orderDetails.length'>
+            <div class="col-6">
+                <a [routerLink]="['/home/fashion']" class="btn btn-solid">continue shopping</a>
+            </div>
+            <div class="col-6">
+            </div>
+        </div>
+    </div>
+</section>
+<!--section end-->
